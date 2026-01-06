@@ -11,17 +11,17 @@ This critical step involved preparing the raw data and engineering a high-impact
 import pandas as pd
 import numpy as np
 
-# Load the raw dataset
+ Load the raw dataset
 df = pd.read_csv("bank-full.csv", sep=';') 
 
-# --- CRITICAL FEATURE ENGINEERING: 'Was_C' ---
-# The original 'pdays' column records days since the last contact (or -1 if not contacted).
-# We transform this into a powerful binary predictor: 
-# 'No' = Client was never successfully contacted in a previous campaign (pdays < 0).
-# 'Yes' = Client had a previous contact (pdays >= 0).
+ --- CRITICAL FEATURE ENGINEERING: 'Was_C' ---
+ The original 'pdays' column records days since the last contact (or -1 if not contacted).
+ We transform this into a powerful binary predictor: 
+ 'No' = Client was never successfully contacted in a previous campaign (pdays < 0).
+'Yes' = Client had a previous contact (pdays >= 0).
 df['Was_C '] = np.where(df['pdays'] < 0, 'No', 'Yes') 
 
-# Convert the target variable 'y' to numeric (1=Yes, 0=No) for easy calculation of mean/conversion rate
+ Convert the target variable 'y' to numeric (1=Yes, 0=No) for easy calculation of mean/conversion rate
 df['y'] = df['y'].replace({'yes': 1, 'no': 0})
 
 Step 2: Diagnostic Analysis (Exploratory Data Analysis - EDA)
@@ -33,7 +33,7 @@ print("Conversion Rate by Previous Contact Success:")
 conversion_by_contact = df.groupby('Was_C ')['y'].mean()
 print(conversion_by_contact)
 
-# Visualizing the difference:
+ Visualizing the difference:
 conversion_by_contact.plot(kind='bar', title='Conversion Rate by Previous Contact')
 
 B. Impact of Marital Status
@@ -44,7 +44,7 @@ print(conversion_by_marital)
 
 C. Impact of Age Group
 Binning the continuous age variable to identify optimal demographic brackets for targeting.
-# Define bins (example groups: young, middle-aged, senior)
+ Define bins (example groups: young, middle-aged, senior)
 age_bins = [18, 30, 45, 60, 100] 
 df['Age_Group'] = pd.cut(df['age'], bins=age_bins)
 
@@ -54,7 +54,7 @@ conversion_by_age.plot(kind='bar', title='Conversion Rate by Age Group')
 
 D. Impact of Call Duration
 Analysis of the strong correlation between call length (duration) and a successful subscription.
-# Create duration bins (e.g., in minutes) to show the conversion rate increase
+ Create duration bins (e.g., in minutes) to show the conversion rate increase
 duration_bins = [0, 60, 180, 360, 9999] 
 df['Duration_Group'] = pd.cut(df['duration'], bins=duration_bins)
 
@@ -73,8 +73,8 @@ print("Conversion Rate by Job Title (Top 5):")
 conversion_by_job = df.groupby('job')['y'].mean().sort_values(ascending=False)
 print(conversion_by_job.head(5))
 
-# Used for visualization in the presentation deck
-# conversion_by_job.plot(kind='barh', title='Conversion by Job Title')
+ Used for visualization in the presentation deck
+ conversion_by_job.plot(kind='barh', title='Conversion by Job Title')
 
 Business Outcome
 The generated insights provide an optimized targeting strategy:
