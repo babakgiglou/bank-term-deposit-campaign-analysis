@@ -1,18 +1,23 @@
-Project Overview: Predictive Targeting for Financial Services
+## Project Overview: Predictive Targeting for Financial Services
+
 This project focuses on leveraging Diagnostic and Predictive Analytics to optimize the direct marketing campaign for a major financial institution's Term Deposit product.
 
-The primary goal was to move beyond costly mass-marketing by identifying the key customer characteristics and behaviors that drive subscription success. The analysis provides a data-driven framework for improving campaign Return on Investment ##(ROI) and significantly reducing operational marketing costs.
+The primary goal was to move beyond costly mass-marketing by identifying the key customer characteristics and behaviors that drive subscription success. The analysis provides a data-driven framework for improving campaign Return on Investment (ROI) and significantly reducing operational marketing costs.
 
-Technical Methodology & Code Highlights
+## Technical Methodology & Code Highlights
+
 The entire analytical workflow, from data preparation to visualization and insight generation, was implemented using Python's core data science stack.
 
-Step 1: Data Setup and Feature Engineering
+### Step 1: Data Setup and Feature Engineering
+
 This critical step involved preparing the raw data and engineering a high-impact feature to simplify the complex customer contact history.
+
+```python
 import pandas as pd
 import numpy as np
 
- Load the raw dataset
-df = pd.read_csv("bank-full.csv", sep=';') 
+# Load the raw dataset
+df = pd.read_csv("bank-full.csv", sep=';')
 
  --- CRITICAL FEATURE ENGINEERING: 'Was_C' ---
  The original 'pdays' column records days since the last contact (or -1 if not contacted).
